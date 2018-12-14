@@ -1,0 +1,45 @@
+<%- include('header') %>
+<%= user.login; %>
+<br>
+
+<%for (doc of docs){ %>
+<%if (!doc.friend_name.length<=0) { %>
+    <p>vos amis sont :</p>
+    <% for(var i = 0; i < doc.friend_name.length; ++i) { %>
+        <a name="<%= doc.friend_name[i]%>">- <%= doc.friend_name[i]%><% } %></a>
+<% }else { %>
+    vous n'avez pas d'amis
+<% } %>
+<% } %>
+
+<% let type; %>
+<% for (request of docs) {
+if(!request.request.length<=0) {%>
+    <% let i = 0 %>
+    <% if(i==0) { type = 'visibility: visible;'; }if (i==1) { type = 'visibility:hidden ;'; } %>
+
+        <% for (var a = 0; a < doc.request.length; a++) { %>
+            <form action="/acceptfriend" method="post">
+            <input type="hidden" name="name" value="<%= doc.request[a] %>">
+                <p style="<%= type; %>"> <%= doc.request[a]; %> vous demande en amis</p>
+            <input type="submit" style="<%= type; %>" value="Accepter la demande">
+            </form>
+    <% } %>
+
+<% }else {%>
+    <% i = 1 %>
+    <% if(i==0) { type = 'visibility: hidden;'; }if (i==1) { type = 'visibility: visible;'; } %>
+    <p style = '<%= type; %>'>vous n'avez pas de demande d'amis</p>
+
+<% } %>
+<% } %>
+
+
+<br>
+
+<a href="/addfriend" class="btn btn-primary">ajouter un ami</a>
+<a href="/account" class="btn btn-primary">Retour</a>
+
+<a href="/logout">Deconnexion</a>
+
+<%- include('footer') %>

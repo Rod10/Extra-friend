@@ -1,0 +1,14 @@
+<%- include('header') %>
+<br>
+<form action="/add" method="post">
+    <div class="form-group">
+        <label for="nom">Entrer le nom: </label>
+        <input id="nom" type="text" class="form-control" name="nom" placeholder="nom">
+        <% if(typeof errors.nom != 'undefined'){ %>
+            <div style="color : red"><%= errors.nom; %></div>
+        <% } %>
+    </div>
+    <input type="submit" class="btn btn-primary" value="Demander en amis">
+</form>
+
+<%- include('footer') %>

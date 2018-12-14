@@ -1,0 +1,12 @@
+<%- include('header') %>
+<h1>Extra-friend</h1>
+
+<% if(!user){ %>
+    <%- include('login') %>
+<% } %>
+<br>
+<p>Vous n'etes pas inscrit ?</p>
+<form method="get" action="/register">
+    <button type="submit">S'inscrire</button>
+</form>
+<%- include('footer') %>

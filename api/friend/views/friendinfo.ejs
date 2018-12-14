@@ -1,0 +1,14 @@
+<%- include('header') %>
+<%= user.login; %>
+<br>
+<% for(let doc of docs) { %>
+    <p> age: <%= doc.age; %></p>
+    <p> race: <%= doc.race; %></p>
+    <p> famille: <%= doc.famille; %></p>
+    <p> nourriture: <%= doc.nourriture; %></p>
+<% } %>
+
+<a href="/loadfriend" class="btn btn-primary">Retour</a>
+<a href="/logout">Deconnexion</a>
+
+<%- include('footer') %>
