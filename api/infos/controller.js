@@ -12,6 +12,7 @@ module.exports = function (app) {
                 if (!docs) {
                     res.redirect('/addinfos', {errors: {}});
                 } else {
+                    console.log(docs);
                     res.render('infosection', {docs: docs});
                 }
             });
@@ -27,14 +28,14 @@ module.exports = function (app) {
             }, function (error, docs) {
                 if (docs=='')
                 {
-                    doc = {
-                        age: 'age',
-                        famille: 'famille',
-                        race: 'race',
-                        nourriture: 'nourriture'
-                    };
+                    doc = [{
+                        age: '',
+                        famille: '',
+                        race: '',
+                        nourriture: ''
+                    }];
 
-                    res.render('addinfos', {errors: {}, docs: {}});
+                    res.render('addinfos', {errors: {}, docs: doc});
                 }
                 else
                     res.render('addinfos', {errors: {}, docs: docs});

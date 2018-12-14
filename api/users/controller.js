@@ -75,7 +75,7 @@ module.exports = function (app) {
                                 title: 'Inscription réussie',
                                 text: 'Vous ètes bien inscrit',
                             };
-                            res.redirect('/success');
+                            res.redirect('/account');
                         })
                     } else
                     {
