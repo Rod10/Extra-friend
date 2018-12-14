@@ -72,11 +72,9 @@ module.exports = function (app) {
                                     let test = doca.friend_name;
                                     let friend = name.concat(test);
                                     let rmfriend = doca.request;
-                                    //console.log(rmfriend);
                                     for (let i = rmfriend.length - 1; i >= 0; i--) {
                                         if (rmfriend[i] === req.body.name) {
                                             rmfriend.splice(i, 1);
-                                            console.log(rmfriend);
                                         }
                                     }
                                     app.api.models.friend.update({name: req.session.user.login}, {

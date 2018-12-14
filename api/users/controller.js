@@ -21,9 +21,9 @@ module.exports = function (app) {
 
             app.api.models.users.findOne({'login': login_name, password: pass}, function (err, user) {
                 if (user) {
-                        req.session.user = user;
-                        req.session.save();
-                        res.redirect('/account');
+                    req.session.user = user;
+                    req.session.save();
+                    res.redirect('/account');
                 }
                 else
                     res.render('index', {errors: {login_name: 'credential invalide'}});
@@ -60,7 +60,6 @@ module.exports = function (app) {
             if (validator.validate(email) == false)
                 errors.email = 'Veuillez rentrer une email valide';
 
-            //console.log(errors)
             if (Object.keys(errors).length == 0) {
                 app.api.models.users.findOne({$or: [{login: login_name}, {email: email}]}, function (err, doc) {
                     if (!doc) {
@@ -71,14 +70,9 @@ module.exports = function (app) {
                             first_log_date: new Date(),
                         };
                         app.api.models.users.insert(Compte, function (err, docinsert) {
-                            req.session.flash = {
-                                title: 'Inscription réussie',
-                                text: 'Vous ètes bien inscrit',
-                            };
                             res.redirect('/account');
                         })
-                    } else
-                    {
+                    } else {
                         console.log(doc);
                         res.end('credential deja pris');
                     }
@@ -88,7 +82,7 @@ module.exports = function (app) {
             }
         },
 
-        getfirendlist:function (req,res) {
+        getfirendlist: function (req, res) {
             res.redirect('/friendlist');
         }
 

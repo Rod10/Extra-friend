@@ -8,7 +8,6 @@ module.exports = function (app) {
                 nourriture: 1,
                 _id: 1
             }, function (error, docs) {
-                console.log(docs);
                 if (!docs) {
                     res.redirect('/addinfos', {errors: {}});
                 } else {
@@ -26,15 +25,13 @@ module.exports = function (app) {
                 nourriture: 1,
                 _id: 1
             }, function (error, docs) {
-                if (docs=='')
-                {
+                if (docs == '') {
                     doc = [{
                         age: '',
                         famille: '',
                         race: '',
                         nourriture: ''
                     }];
-
                     res.render('addinfos', {errors: {}, docs: doc});
                 }
                 else
@@ -64,7 +61,14 @@ module.exports = function (app) {
                             res.redirect('/infosection');
                         })
                     } else {
-                        app.api.models.infos.update({name: req.session.user.login}, {$set: {age: age, famille: famille, race: race, nourriture: nourriture}}, {}, function (err, numReplaced) {
+                        app.api.models.infos.update({name: req.session.user.login}, {
+                            $set: {
+                                age: age,
+                                famille: famille,
+                                race: race,
+                                nourriture: nourriture
+                            }
+                        }, {}, function (err, numReplaced) {
                             res.redirect('/infosection');
                         });
                     }
