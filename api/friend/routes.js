@@ -6,4 +6,6 @@ module.exports = function (app) {
     app.instance.get('/addfriend', ctrl.addfriend);
     app.instance.post('/add', ctrl.addfriends);
     app.instance.post('/acceptfriend', ctrl.acceptfriend);
+    app.instance.post('/addfriendaccount', ctrl.addfriendaccount);
+    app.instance.get('/test', ctrl.addfriends);
 };

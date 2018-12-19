@@ -1,0 +1,28 @@
+<%- include('header') %>
+<h1>Créer un compte pour un amis</h1>
+
+<form action="/addfriendaccount" method="post">
+    <div class="form-group">
+        <label for="login">Enter login: </label>
+        <input id="login" type="text" class="form-control" name="login" placeholder="Login" value="<%= docs.name; %>">
+        <% if(typeof errors.login_name != 'undefined'){ %>
+            <div style="color : red"><%= errors.login_name; %></div>
+        <% } %>
+    </div>
+    <div class="form-group">
+        <label for="email">Enter email: </label>
+        <input id="email" type="text" class="form-control" name="email" placeholder="email">
+        <% if(typeof errors.email != 'undefined'){ %>
+            <div style="color : red"><%= errors.email; %></div>
+        <% } %>
+    </div>
+    <div class="form-group">
+        <label for="password">Enter password: </label>
+        <input id="password" type="password" class="form-control" name="password" placeholder="Password">
+        <% if(typeof errors.pass != 'undefined'){ %>
+            <div style="color : red"><%= errors.pass; %></div>
+        <% } %>
+    </div>
+    <input type="submit" class="btn btn-primary" value="S'inscrire">
+</form>
+<%- include('footer') %>

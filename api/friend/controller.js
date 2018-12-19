@@ -1,3 +1,6 @@
+const sha512 = require('js-sha512');
+const validator = require("email-validator");
+
 module.exports = function (app) {
     return {
 
@@ -39,7 +42,13 @@ module.exports = function (app) {
                     request: 1,
                     _id: 1
                 }, function (err, docs) {
-                    if (docs) {
+                    console.log(docs);
+                    if (docs=='')
+                    {
+                        docs={name:names};
+                        res.render('createfriendaccount', {docs:docs, errors:{}})
+                    }
+                    else if (docs) {
                         if (!docs.request) {
                             for (doc of docs) {
                                 let name = [req.session.user.login];
@@ -92,6 +101,49 @@ module.exports = function (app) {
                 }
 
             })
+        },
+
+        addfriendaccount: function (req,res)
+        {
+            let login_name = req.body.login;
+            let pass = req.body.password;
+            let email = req.body.email;
+
+            let errors = {};
+            if (login_name.length < 3 || login_name.length > 20)
+                errors.login_name = 'Pseudo entre 3 et 20 characteres';
+            if (pass.length < 5 || pass.length > 20)
+                errors.pass = 'Mot de passe entre 5 et 20 characteres';
+            if (validator.validate(email) == false)
+                errors.email = 'Veuillez rentrer une email valide';
+
+            if (Object.keys(errors).length == 0) {
+                app.api.models.users.findOne({$or: [{login: login_name}, {email: email}]}, function (err, doc) {
+                    if (!doc) {
+                        Compte = {
+                            login: login_name,
+                            email: email,
+                            password: sha512(pass),
+                            first_log_date: new Date(),
+                        };
+                        app.api.models.users.insert(Compte, function (err, docinsert) {
+                            Friend = {
+                                name: login_name,
+                                friend_name: [],
+                                request: [req.session.user.login],
+                            };
+                            app.api.models.friend.insert(Friend, function (err, docinsert) {
+                                res.redirect('/loadfriend');
+                            })
+                        })
+                    } else {
+                        console.log(doc);
+                        res.end('credential deja pris');
+                    }
+                })
+            } else {
+                res.render('register', {errors: errors})
+            }
         },
 
     }
